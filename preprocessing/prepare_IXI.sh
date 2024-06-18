@@ -5,6 +5,9 @@
 INPUT_DIR=$1
 DATA_DIR=$2
 
+echo "DATA_DIR: $DATA_DIR"
+echo "INPUT_DIR: $INPUT_DIR"
+
 # make the arguments mandatory and that the data dir is not a relative path
 if [ -z "$INPUT_DIR" ] || [ -z "$DATA_DIR" ] 
 then
@@ -28,20 +31,29 @@ do
 done
 
 echo "Generate masks"
-CUDA_VISIBLE_DEVICES=0 hd-bet -i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 
+
+echo "1"
+CUDA_VISIBLE_DEVICES=0 hd-bet -i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 -v
+echo "2"
 python extract_masks.py -i $DATA_DIR/v2skullstripped/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/mask
+echo "3"
 python replace.py -i $DATA_DIR/v2skullstripped/IXI/mask -s " _t2" ""
+echo "4"
 
 echo "Register t2"
 python registration.py -i $DATA_DIR/v2skullstripped/IXI/t2 -o $DATA_DIR/v3registered_non_iso/IXI/t2 --modality=_t2 -trans Affine -templ sri_atlas/templates/T1_brain.nii
+echo "5"
 
 echo "Cut to brain"
 python cut.py -i $DATA_DIR/v3registered_non_iso/IXI/t2 -m $DATA_DIR/v3registered_non_iso/IXI/mask/ -o $DATA_DIR/v3registered_non_iso_cut/IXI/ -mode t2
+echo "6"
 
 echo "Bias Field Correction"
 python n4filter.py -i $DATA_DIR/v3registered_non_iso_cut/IXI/t2 -o $DATA_DIR/v4correctedN4_non_iso_cut/IXI/t2 -m $DATA_DIR/v3registered_non_iso_cut/IXI/mask
+echo "7"
 
 mkdir $DATA_DIR/v4correctedN4_non_iso_cut/IXI/mask
+echo "8"
 cp $DATA_DIR/v3registered_non_iso_cut/IXI/mask/* $DATA_DIR/v4correctedN4_non_iso_cut/IXI/mask
 echo "Done"
 

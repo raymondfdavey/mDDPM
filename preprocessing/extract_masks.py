@@ -16,12 +16,16 @@ def arg_parser():
 
 
 def main(args=None):
+    print('HI')
     args = arg_parser().parse_args(args)
     try:
+        print('HI2')
         if not os.path.isdir(args.img_dir):
             raise ValueError('(-i / --img-dir) argument needs to be a directory of NIfTI images.')
         Path(args.out_dir).mkdir(exist_ok=True)
+        print('HI3')
         for file in os.listdir(args.img_dir):
+            print(file)
             if file.endswith('_mask.nii.gz') or file.endswith('_mask.nii'):
                 os.rename(os.path.join(args.img_dir, file), os.path.join(args.out_dir, file))
         return 0
