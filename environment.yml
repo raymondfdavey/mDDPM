@@ -146,7 +146,7 @@ dependencies:
     - aiosignal==1.2.0
     - albumentations==1.1.0
     - antlr4-python3-runtime==4.8
-    - antspyx==0.3.8
+    - antspyx
     - arrow==1.2.1
     - asgiref==3.5.0
     - astunparse==1.6.3

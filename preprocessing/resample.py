@@ -24,6 +24,7 @@ def arg_parser():
 
 
 def main(args=None):
+    print(args)
     args = arg_parser().parse_args(args)
     try:
         if not os.path.isdir(args.img_dir):
