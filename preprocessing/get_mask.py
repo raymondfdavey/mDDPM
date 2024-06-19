@@ -29,7 +29,10 @@ def main(args=None):
             if file.endswith('.nii.gz') or file.endswith('.nii'):
                 vol_file = ants.image_read(os.path.join(args.img_dir, file))
                 mask = ants.get_mask(vol_file)
-                ants.image_write(mask, os.path.join(args.out_dir,file.replace(args.modality,'mask')))
+                output_file = os.path.join(args.out_dir, file.replace(args.modality, 'mask'))
+                output_file = output_file.replace('.nii.gz', '.nii.gz_mask.nii.gz')  # Add '_mask' suffix
+                ants.image_write(mask, output_file)
+                print(f"Created mask: {output_file}")
         
                 if args.out_dir == 'tmp':
                     os.remove(os.path.join(args.img_dir, file))
