@@ -1,6 +1,5 @@
 import ants
 import nibabel as nib
-
 import argparse
 import os
 import sys

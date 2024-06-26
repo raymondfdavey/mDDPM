@@ -28,8 +28,13 @@ do
 done
 
 echo "Generate masks"
+
+# cpu
 hd-bet -i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 -device cpu -mode fast -tta 0
-# CUDA_VISIBLE_DEVICES=0 hd-bet -i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 
+#mps
+# hd-bet -i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 -device mps -mode fast -tta 0
+# gpu
+# CUDA_VISIBLE_DEVICES=0 hd-bet -i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 -device 0
 
 python3 extract_masks.py -i $DATA_DIR/v2skullstripped/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/mask
 python3 replace.py -i $DATA_DIR/v2skullstripped/IXI/mask -s " _t2" ""
