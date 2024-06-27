@@ -39,7 +39,7 @@ PYTORCH_ENABLE_MPS_FALLBACK=1 hd-bet -i $DATA_DIR/v1resampled/MSLUB/t2 -o $DATA_
 python3 extract_masks.py -i $DATA_DIR/v2skullstripped/MSLUB/t2 -o $DATA_DIR/v2skullstripped/MSLUB/mask
 python3 replace.py -i $DATA_DIR/v2skullstripped/MSLUB/mask -s " _t2" ""
 
-copy segmentation masks to the data directory
+# copy segmentation masks to the data directory
 mkdir -p $DATA_DIR/v2skullstripped/MSLUB/seg
 cp -r $INPUT_DIR/seg/* $DATA_DIR/v2skullstripped/MSLUB/seg/
 

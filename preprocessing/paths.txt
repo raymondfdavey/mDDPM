@@ -6,3 +6,36 @@ bash prepare_MSLUB.sh /Users/rd81/Downloads/MINI_DATA/MSLUB /Users/rd81/Download
 bash prepare_Brats21.sh /Users/rd81/Downloads/MINI_DATA/Brats21 /Users/rd81/Downloads/MINI_DATA/MINI_PROCESSED
 
 
+prepare_Brats21.sh summary (modified version):
+
+Input: $INPUT_DIR/t2 (pre-processed T2 images), $INPUT_DIR/seg (segmentation masks)
+
+1. Set up directory structure:
+   Shell commands to create directories $DATA_DIR/v2skullstripped/Brats21/ and $DATA_DIR/v2skullstripped/Brats21/mask.
+
+2. Copy input data:
+   Shell command to copy T2 images from $INPUT_DIR/t2 and segmentation masks from $INPUT_DIR/seg to $DATA_DIR/v2skullstripped/Brats21/.
+
+3. Extract and process masks:
+   a. Python call to get_mask.py which takes T2 images from $DATA_DIR/v2skullstripped/Brats21/t2, generates binary masks, and saves them back to the same directory.
+   
+   b. Python call to extract_masks.py which takes the newly created mask files from $DATA_DIR/v2skullstripped/Brats21/t2, extracts them, and saves them to $DATA_DIR/v2skullstripped/Brats21/mask.
+   
+   c. Python call to replace.py which takes mask files from $DATA_DIR/v2skullstripped/Brats21/mask, removes " _t2" from filenames, producing renamed mask files which are saved back to the same directory.
+
+4. Register t2:
+   Python call to registration.py which takes T2 images from $DATA_DIR/v2skullstripped/Brats21/t2, applies affine registration to the SRI atlas template, producing registered T2 images which are saved to $DATA_DIR/v3registered_non_iso/Brats21/t2.
+
+5. Cut to brain:
+   Python call to cut.py which takes registered T2 images from $DATA_DIR/v3registered_non_iso/Brats21/t2 and masks from $DATA_DIR/v3registered_non_iso/Brats21/mask/, applies cropping to remove empty space around the brain, producing cropped T2 images, masks, and segmentations which are saved to $DATA_DIR/v3registered_non_iso_cut/Brats21/t2, mask, and seg respectively.
+
+6. Bias Field Correction:
+   Python call to n4filter.py which takes cropped T2 images from $DATA_DIR/v3registered_non_iso_cut/Brats21/t2 and corresponding masks, applies N4 bias field correction, producing bias-corrected T2 images which are saved to $DATA_DIR/v4correctedN4_non_iso_cut/Brats21/t2.
+
+7. Copy final masks and segmentations:
+   Shell commands to create directories $DATA_DIR/v4correctedN4_non_iso_cut/Brats21/mask and $DATA_DIR/v4correctedN4_non_iso_cut/Brats21/seg, then copy the corresponding files from $DATA_DIR/v3registered_non_iso_cut/Brats21/ to these new directories.
+
+Final output:
+- Bias-corrected, registered, and cropped T2 images: $DATA_DIR/v4correctedN4_non_iso_cut/Brats21/t2
+- Corresponding brain masks: $DATA_DIR/v4correctedN4_non_iso_cut/Brats21/mask
+- Corresponding segmentation masks: $DATA_DIR/v4correctedN4_non_iso_cut/Brats21/seg
