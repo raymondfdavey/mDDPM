@@ -28,14 +28,18 @@ do
 done
 
 echo "Generate masks"
-# mkdir -p $DATA_DIR/v2skullstripped/MSLUB/t2
-hd-bet -i $DATA_DIR/v1resampled/MSLUB/t2 -o $DATA_DIR/v2skullstripped/MSLUB/t2 -device cpu -mode fast -tta 0
-# CUDA_VISIBLE_DEVICES=0 hd-bet -i $DATA_DIR/v1resampled/MSLUB/t2 -o $DATA_DIR/v2skullstripped/MSLUB/t2 # --overwrite_existing=0
+
+# cpu
+# hd-bet -i $DATA_DIR/v1resampled/MSLUB/t2 -o $DATA_DIR/v2skullstripped/MSLUB/t2 -device cpu -mode fast -tta 0
+# mps
+PYTORCH_ENABLE_MPS_FALLBACK=1 hd-bet -i $DATA_DIR/v1resampled/MSLUB/t2 -o $DATA_DIR/v2skullstripped/MSLUB/t2 -device mps -mode fast -tta 0
+# gpu
+# CUDA_VISIBLE_DEVICES=0 hd-bet -i $DATA_DIR/v1resampled/MSLUB/t2 -o $DATA_DIR/v2skullstripped/MSLUB/t2 -device 0
 
 python3 extract_masks.py -i $DATA_DIR/v2skullstripped/MSLUB/t2 -o $DATA_DIR/v2skullstripped/MSLUB/mask
 python3 replace.py -i $DATA_DIR/v2skullstripped/MSLUB/mask -s " _t2" ""
 
-# copy segmentation masks to the data directory
+copy segmentation masks to the data directory
 mkdir -p $DATA_DIR/v2skullstripped/MSLUB/seg
 cp -r $INPUT_DIR/seg/* $DATA_DIR/v2skullstripped/MSLUB/seg/
 
@@ -46,19 +50,23 @@ do
   mv "$file" "${base_name}.nii.gz_seg.nii.gz"
 done
 
-
 echo "Register t2"
+# automatically registers the segmentation files as well
 python3 registration.py -i $DATA_DIR/v2skullstripped/MSLUB/t2 -o $DATA_DIR/v3registered_non_iso/MSLUB/t2 --modality=_t2 -trans Affine -templ sri_atlas/templates/T1_brain.nii
 
 echo "Cut to brain"
+# automatically cuts the segmentation files as well
 python3 cut.py -i $DATA_DIR/v3registered_non_iso/MSLUB/t2 -m $DATA_DIR/v3registered_non_iso/MSLUB/mask/ -o $DATA_DIR/v3registered_non_iso_cut/MSLUB/ -mode t2
 
 echo "Bias Field Correction"
 python3 n4filter.py -i $DATA_DIR/v3registered_non_iso_cut/MSLUB/t2 -o $DATA_DIR/v4correctedN4_non_iso_cut/MSLUB/t2 -m $DATA_DIR/v3registered_non_iso_cut/MSLUB/mask
+
 mkdir $DATA_DIR/v4correctedN4_non_iso_cut/MSLUB/mask
 cp $DATA_DIR/v3registered_non_iso_cut/MSLUB/mask/* $DATA_DIR/v4correctedN4_non_iso_cut/MSLUB/mask
+
 mkdir $DATA_DIR/v4correctedN4_non_iso_cut/MSLUB/seg
 cp $DATA_DIR/v3registered_non_iso_cut/MSLUB/seg/* $DATA_DIR/v4correctedN4_non_iso_cut/MSLUB/seg
+
 echo "Done"
 
 

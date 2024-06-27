@@ -1,13 +1,18 @@
 #!/bin/bash
 
-# Run prepare_IXI.sh
-echo "RUNNING IXI PREPROCESSING"
-bash prepare_IXI.sh /Users/rd81/Downloads/MINI_DATA/IXI /Users/rd81/Downloads/MINI_DATA/MINI_PROCESSED
+# Define variables
+original_data_dir="/Users/rd81/Documents/MINI_DATA_FOR_PLAY/MINI_ORIGINAL"
+processed_data_dir="/Users/rd81/Documents/MINI_DATA_FOR_PLAY/MINI_PROCESSED"
+
+# # Run prepare_IXI.sh - WORKING!
+# echo "RUNNING IXI PREPROCESSING"
+# bash prepare_IXI.sh "$original_data_dir/IXI" "$processed_data_dir"
+# echo "IXI PREPROCESSING...DONE!"
 
 # Run prepare_MSLUB.sh
-echo "running MSLIB PREPROCESSING"
-bash prepare_MSLUB.sh /Users/rd81/Downloads/MINI_DATA/MSLUB /Users/rd81/Downloads/MINI_DATA/MINI_PROCESSED
+echo "RUNNING MSLUB PREPROCESSING"
+bash prepare_MSLUB.sh "$original_data_dir/MSLUB" "$processed_data_dir"
 
-# Run prepare_Brats21.sh
-echo "running BRATS PREPROCESSING"
-bash prepare_Brats21.sh /Users/rd81/Downloads/MINI_DATA/Brats21 /Users/rd81/Downloads/MINI_DATA/MINI_PROCESSED
+# # Run prepare_Brats21.sh
+# echo "RUNNING BRATS PREPROCESSING"
+# bash prepare_Brats21.sh "$original_data_dir/Brats21" "$processed_data_dir"
