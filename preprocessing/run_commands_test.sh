@@ -1,6 +1,6 @@
 #!/bin/bash
-# PATHS FOR USING
-
+# set -e
+# set -x
 # Define variables
 # original_data_dir="/Users/rd81/Documents/MINI_DATA_FOR_PLAY/MINI_ORIGINAL"
 # processed_data_dir="/Users/rd81/Documents/MINI_DATA_FOR_PLAY/MINI_PROCESSED"
@@ -9,15 +9,17 @@
 #  eg: ./run_commands_test.sh /Users/rd81/Documents/MINI_DATA_FOR_PLAY/MINI_ORIGINAL /Users/rd81/Documents/MINI_DATA_FOR_PLAY/MINI_PROCESSED /Users/rd81/Documents/MINI_DATA_FOR_PLAY/MINI_FINAL /Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Desktop/diss_git/mDDPM/Data/splits
 # Check if the correct number of arguments is provided
 if [ "$#" -ne 4 ]; then
+    echo "PROBLEM"
     echo "Usage: $0 <ORIGINAL_DATA_DIR> <PROCESSED_DATA_DIR> <FINAL_DATA_TARGET_DIR> <SPLITS_DATA_DIR>"
     exit 1
 fi
-
-# Define variables from command-line arguments
 original_data_dir="$1"
 processed_data_dir="$2"
 final_data_target_dir="$3"
 splits_data="$4"
+
+echo "renaming_data"
+python3 data_reorg_claude.py "$original_data_dir"
 
 # Run prepare_IXI.sh
 echo "RUNNING IXI PREPROCESSING"

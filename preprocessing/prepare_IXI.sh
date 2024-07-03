@@ -29,7 +29,7 @@ done
 
 echo "Generate masks"
 # cpu
-# hd-bet -i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 -device cpu -mode fast -tta 0
+# hd-bet-i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 -device cpu -mode fast -tta 0
 
 # mps
 PYTORCH_ENABLE_MPS_FALLBACK=1 hd-bet -i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 -device mps -mode fast -tta 0

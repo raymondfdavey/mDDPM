@@ -1,1 +1,37 @@
 log_path
+
+/Users/rd81/MRI_DATA/TESTING/MINI /Users/rd81/MRI_DATA/TESTING/PROCESSED /Users/rd81/MRI_DATA/TESTING/FINAL /Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Desktop/diss_git/mDDPM/Data/splits
+
+/Users/rd81/MRI_DATA/PRODUCTION/FULL /Users/rd81/MRI_DATA/PRODUCTION/PROCESSED /Users/rd81/MRI_DATA/PRODUCTION/FINAL /Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Desktop/diss_git/mDDPM/Data/splits
+
+
+
+/Users/rd81/MRI_DATA/MINI_orig copy 4/IXI_clean/t2/IXI012-HH-1211-T2.nii.gz
+/Users/rd81/Documents/ORIGINAL_NUMBERING/MINI_ORIGINAL
+/Users/rd81/Documents/ORIGINAL_NUMBERING/MINI_PROCESSED
+/Users/rd81/Documents/ORIGINAL_NUMBERING/MINI_FINAL
+/Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Desktop/diss_git/mDDPM/Data/splits
+`
+/Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Documents/ORIGINAL_DATA_MINI/BraTS21_clean/t2/BraTS-GLI-00000-000-t2w.nii.gz
+/Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Documents/ORIGINAL_DATA_MINI/BraTS21_clean/seg/BraTS-GLI-00000-000-seg.nii.gz
+
+/Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Documents/MINI_DATA_FOR_PLAY/MINI_ORIGINAL/Brats21/t2/Brats1.nii.gz
+/Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Documents/MINI_DATA_FOR_PLAY/MINI_ORIGINAL/Brats21/seg/Brats1_seg.nii.gz
+
+/Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Documents/ORIGINAL_DATA_MINI/IXI_clean/IXI-T2/IXI002-Guys-0828-T2.nii.gz
+/Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Documents/MINI_DATA_FOR_PLAY/MINI_ORIGINAL/IXI/t2/IXI1.nii.gz
+
+/Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Documents/ORIGINAL_DATA_MINI/MSLUB_clean/t2/patient01_T2W.nii.gz
+/Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Documents/ORIGINAL_DATA_MINI/MSLUB_clean/t2/patient02_T2W.nii.gz
+
+
+/Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Documents/MINI_DATA_FOR_PLAY/MINI_ORIGINAL/MSLUB/seg/MSLUB1_seg.nii.gz
+/Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Documents/MINI_DATA_FOR_PLAY/MINI_ORIGINAL/MSLUB/t2/MSLUB1.nii.gz
+
+/Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Documents/ORIGINAL_DATA_MINI/MSLUB_clean/seg/patient01_consensus_gt.nii.gz
+
+/Users/rd81/Library/CloudStorage/OneDrive-UniversityofSussex/Documents/ORIGINAL_DATA_MINI/MSLUB_clean/t2/patient01_T2W.nii.gz
+
+/Users/rd81/MRI_DATA/MINI/BraTS21_clean/
+/Users/rd81/MRI_DATA/MINI/IXI_clean/
+/Users/rd81/MRI_DATA/MINI/MSLUB_clean/
