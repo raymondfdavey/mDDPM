@@ -15,24 +15,26 @@ if [ "$#" -ne 4 ]; then
 fi
 
 # Define variables from command-line arguments
+
 original_data_dir="$1"
 processed_data_dir="$2"
 final_data_target_dir="$3"
 splits_data="$4"
+resource="$5"
 
 # Run prepare_IXI.sh
 echo "RUNNING IXI PREPROCESSING"
-bash prepare_IXI.sh "$original_data_dir/IXI" "$processed_data_dir"
+bash prepare_IXI.sh "$original_data_dir/IXI" "$processed_data_dir" "$5"
 echo "IXI PREPROCESSING...DONE!"
 
 # Run prepare_MSLUB.sh
 echo "RUNNING MSLUB PREPROCESSING"
-bash prepare_MSLUB.sh "$original_data_dir/MSLUB" "$processed_data_dir"
+bash prepare_MSLUB.sh "$original_data_dir/MSLUB" "$processed_data_dir" "$5"
 echo "MSLUB PREPROCESSING...DONE!"
 
 # Run prepare_Brats21.sh
 echo "RUNNING BRATS PREPROCESSING"
-bash prepare_Brats21.sh "$original_data_dir/Brats21" "$processed_data_dir"
+bash prepare_Brats21.sh "$original_data_dir/Brats21" "$processed_data_dir" "$5"
 echo "BRATS PREPROCESSING...DONE!"
 
 echo "CREATING TARGET DIRECTORIES"

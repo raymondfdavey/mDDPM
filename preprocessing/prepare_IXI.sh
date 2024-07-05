@@ -4,7 +4,7 @@
 # 2. path to output directory
 INPUT_DIR=$1
 DATA_DIR=$2
-
+RESOURCE=$3
 # make the arguments mandatory and that the data dir is not a relative path
 if [ -z "$INPUT_DIR" ] || [ -z "$DATA_DIR" ] 
 then
@@ -28,14 +28,20 @@ do
 done
 
 echo "Generate masks"
-# cpu
-# hd-bet-i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 -device cpu -mode fast -tta 0
 
-# mps
-PYTORCH_ENABLE_MPS_FALLBACK=1 hd-bet -i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 -device mps -mode fast -tta 0
-
-# gpu
-# CUDA_VISIBLE_DEVICES=0 hd-bet -i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 -device 0
+if [ "$RESOURCE" = "cpu" ]; then
+    echo "Running HD-BET brain extraction with $RESOURCE"
+    hd-bet -i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 -device cpu -mode fast -tta 0
+elif [ "$RESOURCE" = "mps" ]; then
+    echo "Running HD-BET brain extraction with $RESOURCE"
+    PYTORCH_ENABLE_MPS_FALLBACK=1 hd-bet -i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 -device mps -mode fast -tta 0
+elif [ "$RESOURCE" = "gpu" ]; then
+    echo "Running HD-BET brain extraction with $RESOURCE"
+    CUDA_VISIBLE_DEVICES=0 hd-bet -i $DATA_DIR/v1resampled/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/t2 -device 0
+else
+    echo "Invalid resource type $RESOURCE for running HD-BET. Please use 'cpu', 'gpu', or 'mps'."
+    exit 1
+fi
 
 python3 extract_masks.py -i $DATA_DIR/v2skullstripped/IXI/t2 -o $DATA_DIR/v2skullstripped/IXI/mask
 python3 replace.py -i $DATA_DIR/v2skullstripped/IXI/mask -s " _t2" ""
